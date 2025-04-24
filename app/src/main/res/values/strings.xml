@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ShowList</string>
+    <string name="name">Name</string>
+    <string name="code">Code</string>
+    <string name="capital">Capital</string>
+    <string name="region">Region</string>
+    <string name="error">There was an error</string>
+</resources>

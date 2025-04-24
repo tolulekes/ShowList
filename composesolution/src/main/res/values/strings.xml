@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ComposeSolution</string>
+    <string name="line">---------------------------------------</string>
+    <string name="error">There was an error</string>
+</resources>
