@@ -1,7 +1,6 @@
 package com.toluleke.composesolution
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,9 +10,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -43,7 +42,7 @@ class ComposeActivity : ComponentActivity() {
             ShowListTheme {
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LazyColumn (
+                    LazyColumn(
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         itemsIndexed(viewState.countries) { index, country ->
@@ -61,9 +60,11 @@ class ComposeActivity : ComponentActivity() {
 fun Country(modifier: Modifier = Modifier, country: CountryDetails) {
 
     Column(
-        modifier = modifier.padding(20.dp),
+        modifier = modifier
+            .padding(24.dp)
+            .fillMaxWidth(0.7f),
         verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = stringResource(R.string.line))
         SpaceDifferential(modifier, contentPresent = false, composable = {})
@@ -71,13 +72,11 @@ fun Country(modifier: Modifier = Modifier, country: CountryDetails) {
             modifier = modifier,
             contentPresent = true,
             composable = {
-                Row {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(
-                        text = (country.name ?: "No Country provided") + "," + country.region
+                        text = (country.name ?: "No Country provided") + ", " + country.region
                     )
-
-                    Spacer(modifier.weight(0.5f))
-
+                    Spacer(modifier.weight(1f))
                     Text(
                         text = country.code ?: "No Code provided"
                     )
@@ -89,10 +88,11 @@ fun Country(modifier: Modifier = Modifier, country: CountryDetails) {
             modifier = modifier,
             contentPresent = true,
             composable = {
-                Row(horizontalArrangement = Arrangement.Start){
+                Row(horizontalArrangement = Arrangement.Start) {
                     Text(
                         text = country.capital ?: "No Capital provided"
                     )
+                    Spacer(modifier.weight(1f))
                 }
             }
         )
@@ -108,14 +108,19 @@ private fun SpaceDifferential(
     composable: @Composable (() -> Unit),
     contentPresent: Boolean
 ) {
-    Row(horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "|", modifier = modifier.padding(end = 16.dp))
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = "|")
         if (contentPresent) {
             composable()
-        } else{
+            Text(text = "|")
+
+        } else {
             Spacer(modifier.weight(1f))
         }
-        Text(text = "|", modifier = modifier.padding(start = 16.dp))
+        Text(text = "|")
     }
 }
