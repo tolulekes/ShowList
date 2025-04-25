@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-    private val ioScope = CoroutineScope(Dispatchers.IO)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val listAdapter = ShowListAdapter()
         val state = viewModel.viewState
-        ioScope.launch {
+        scope.launch {
 
             state.collect {
                 listAdapter.items = it.countries
@@ -61,6 +60,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         scope.cancel()
-        ioScope.cancel()
     }
 }
