@@ -29,8 +29,7 @@ class SLViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val response = repository.getItems()
-                    response.collect { countries ->
+                   repository.getItems().collect { countries ->
                         _viewState.update {
                             it.copy(
                                 countries = countries

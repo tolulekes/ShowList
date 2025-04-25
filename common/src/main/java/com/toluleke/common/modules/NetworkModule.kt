@@ -3,6 +3,7 @@ package com.toluleke.common.modules
 import com.squareup.moshi.Moshi
 import com.toluleke.common.remote.APIService
 import com.toluleke.common.remote.NetworkConstants
+import com.toluleke.common.remote.NetworkResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +35,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(NetworkConstants.BASE_URL)
             .client(clientBuilder.build())
+            .addCallAdapterFactory(NetworkResponseCallAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
